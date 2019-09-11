@@ -8,12 +8,10 @@
 
   let ulStack = document.getElementById('stack');
 
-
-
   for (let i = stack.MAX_SIZE; i > 0 ; i -= 1) {
     let newLi = document.createElement('li');
     newLi.classList.add("list-group-item", "list-group-item-dark");
-    newLi.id = `s${i}`;
+    newLi.dataset.stack = i;
     ulStack.appendChild(newLi);
   }
 
@@ -22,7 +20,7 @@ const addStackButton = document.getElementById('add-stack');
 
 addStackButton.onclick = () => {
   if (stack.canPush()) {
-    const liById = document.getElementById(`s${stack.size + 1}`);
+    const liById = document.querySelector(`li[data-stack="${stack.size + 1}"]`);
     const addStackInput = document.getElementById('add-element-stack');
 
     liById.classList.add('active');
@@ -46,14 +44,15 @@ const takeStackButton = document.getElementById('take-stack');
 takeStackButton.onclick = () => {
   const stackPop = stack.pop();
   if (stackPop !== 'Stack Underflow') {
-    const liById = document.getElementById(`s${stack.size + 1}`);
+    const liById = document.querySelector(`li[data-stack="${stack.size + 1}"]`);
     liById.classList.remove('active');
     liById.innerHTML = '';
   } else {
+    const firstLi = document.querySelector(`li[data-stack="${stack.MAX_SIZE}"]`);
     const newLi = document.createElement('li');
     newLi.classList.add("list-group-item", "list-group-item-danger");
     newLi.innerHTML = stackPop;
-    ulStack.appendChild(newLi);
+    ulStack.insertBefore(newLi, firstLi);
     setTimeout(() => ulStack.removeChild(newLi), 800);
   }
 }

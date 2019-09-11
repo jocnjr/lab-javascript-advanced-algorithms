@@ -1,11 +1,15 @@
-.row {
-  /* width: 30%; */
-}
-
 input {
   width: 100%;
 }
 
 li {
   height: 45px;
+}
+
+.list-group-item {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.active {
+  border: 1px solid #333;
 }
